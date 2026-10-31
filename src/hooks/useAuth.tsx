@@ -17,6 +17,8 @@ interface AuthContextType {
   isLoading: boolean;
   isVerified: boolean;
   personalEmail: string | null;
+  mustChangePassword: boolean;
+  markPasswordChanged: () => void;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, fullName: string, role: UserRole) => Promise<void>;
   signOut: () => Promise<void>;
@@ -35,6 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isVerified, setIsVerified] = useState(false);
   const [personalEmail, setPersonalEmail] = useState<string | null>(null);
+  const [mustChangePassword, setMustChangePassword] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -48,6 +51,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setPhotoUrl(portal?.photo_url ?? null);
         setIsVerified(portal?.is_verified ?? false);
         setPersonalEmail(portal?.personal_email ?? null);
+        setMustChangePassword(portal?.must_change_password ?? false);
       } catch {
         if (active) { setUser(null); setUserRole(null); }
       } finally {
@@ -127,6 +131,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setPhotoUrl(null);
     setIsVerified(false);
     setPersonalEmail(null);
+    setMustChangePassword(false);
     
     // Clear any remaining form data in memory for security
     const event = new CustomEvent('clearFormData');
@@ -147,6 +152,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       isLoading,
       isVerified,
       personalEmail,
+      mustChangePassword,
+      markPasswordChanged: () => setMustChangePassword(false),
       signIn,
       signUp,
       signOut,

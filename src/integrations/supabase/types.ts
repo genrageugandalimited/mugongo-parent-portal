@@ -20,6 +20,7 @@ export type Database = {
           email: string | null
           id: string
           is_verified: boolean
+          must_change_password: boolean
           name: string
           password_hash: string | null
           personal_email: string | null
@@ -31,6 +32,7 @@ export type Database = {
           email?: string | null
           id?: string
           is_verified?: boolean
+          must_change_password?: boolean
           name: string
           password_hash?: string | null
           personal_email?: string | null
@@ -42,6 +44,7 @@ export type Database = {
           email?: string | null
           id?: string
           is_verified?: boolean
+          must_change_password?: boolean
           name?: string
           password_hash?: string | null
           personal_email?: string | null
@@ -608,6 +611,7 @@ export type Database = {
           gender: string | null
           id: string
           is_verified: boolean
+          must_change_password: boolean
           name: string
           password_hash: string
           personal_email: string | null
@@ -622,6 +626,7 @@ export type Database = {
           gender?: string | null
           id?: string
           is_verified?: boolean
+          must_change_password?: boolean
           name: string
           password_hash: string
           personal_email?: string | null
@@ -636,6 +641,7 @@ export type Database = {
           gender?: string | null
           id?: string
           is_verified?: boolean
+          must_change_password?: boolean
           name?: string
           password_hash?: string
           personal_email?: string | null
@@ -653,6 +659,7 @@ export type Database = {
           email: string | null
           id: string
           is_verified: boolean
+          must_change_password: boolean
           name: string
           nationality: string | null
           password_hash: string | null
@@ -670,6 +677,7 @@ export type Database = {
           email?: string | null
           id?: string
           is_verified?: boolean
+          must_change_password?: boolean
           name: string
           nationality?: string | null
           password_hash?: string | null
@@ -687,6 +695,7 @@ export type Database = {
           email?: string | null
           id?: string
           is_verified?: boolean
+          must_change_password?: boolean
           name?: string
           nationality?: string | null
           password_hash?: string | null

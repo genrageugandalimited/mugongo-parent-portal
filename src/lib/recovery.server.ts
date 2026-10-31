@@ -23,7 +23,7 @@ export const findAccountById = (role: PortalRole, id: string) => findBy("id", id
 
 export async function setAccountPassword(account: PortalAccount, password: string) {
   const { hash } = await import("bcryptjs");
-  const { error } = await (supabaseAdmin.from(TABLES[account.role]) as any).update({ password_hash: await hash(password, 10), default_password: account.role === "admin" ? undefined : null }).eq("id", account.id);
+  const { error } = await (supabaseAdmin.from(TABLES[account.role]) as any).update({ password_hash: await hash(password, 10), must_change_password: false, default_password: account.role === "admin" ? undefined : null }).eq("id", account.id);
   if (error) throw new Error("Could not save the new password.");
 }
 
