@@ -1,4 +1,4 @@
-import { classCrest as classCrest } from "@/lib/images";
+import { SchoolCrest } from "@/components/ui/school-crest";
 import { ReactNode } from "react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
@@ -35,7 +35,7 @@ export function DashboardLayout({ children, userRole, userName, photoUrl, onLogo
                 className="flex min-w-0 items-center rounded-md text-left transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 aria-label={`Go to your ${userRole} dashboard`}
               >
-                <img src={classCrest.url} alt={`${school.name} crest`} className="h-11 w-11 shrink-0 object-contain mr-2" />
+                <SchoolCrest className="h-11 w-11 mr-3" />
                 <div className="min-w-0">
                   <h1 className="text-lg font-bold leading-tight">KPM</h1>
                   <p className="text-xs italic text-muted-foreground">{school.motto}</p>
