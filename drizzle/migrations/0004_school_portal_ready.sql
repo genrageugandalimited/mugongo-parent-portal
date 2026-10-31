@@ -1,0 +1,1 @@
+COMMENT ON TABLE public.students IS 'School pupils who sign in to the portal';
