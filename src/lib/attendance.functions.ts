@@ -22,7 +22,7 @@ export const saveAttendance = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin
       .from("attendance_records")
-      .upsert({ ...data, marked_by: userId }, { onConflict: "student_id,date" });
+      .upsert({ student_id: data.student_id!, stream_id: data.stream_id!, date: data.date!, status: data.status!, marked_by: userId }, { onConflict: "student_id,date" });
     if (error) {
       console.error("saveAttendance", error);
       return { error: "Could not save attendance." };
