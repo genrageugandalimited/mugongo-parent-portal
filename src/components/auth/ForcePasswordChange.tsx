@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { SchoolCrest } from "@/components/ui/school-crest";
 import { useAuth } from "@/hooks/useAuth";
 import { changeMyPassword } from "@/lib/auth.functions";
+import { usesDirectPortal, directChangePassword } from "@/lib/portal-direct";
 import { changePasswordInput, MIN_PASSWORD_LENGTH, STARTING_PASSWORD } from "@/lib/password-rules";
 
 /** Shown instead of portal pages until an account replaces the shared starting password. */
@@ -28,7 +29,7 @@ export function ForcePasswordChange() {
     if (!parsed.success) return setError(parsed.error.issues[0]?.message ?? "Choose a different password.");
     setSaving(true);
     try {
-      const result = await change({ data: parsed.data });
+      const result = usesDirectPortal() ? await directChangePassword(parsed.data.currentPassword, parsed.data.newPassword) : await change({ data: parsed.data });
       if (!result.success) return setError(result.message);
       markPasswordChanged();
       toast.success("Your new password is saved.");
