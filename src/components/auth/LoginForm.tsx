@@ -125,10 +125,10 @@ export function LoginForm({ schoolLogo }: LoginFormProps) {
     
     try {
       // Verify pupil credentials against the class register
-      const email = signInData.email.trim().toLowerCase();
+      const loginEmail = signInData.email.trim().toLowerCase();
       const loginResponse = usesDirectPortal()
-        ? await directLogin(email, signInData.password)
-        : await loginPupil({ data: { email, password: signInData.password } });
+        ? await directLogin(loginEmail, signInData.password)
+        : await loginPupil({ data: { email: loginEmail, password: signInData.password } });
 
       if (!loginResponse.success) {
         toast.error(loginResponse.message || "Invalid email or password");
