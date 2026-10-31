@@ -23,3 +23,4 @@
 - [x] Verify Drizzle migrations cleared and empty set rescaffolded (already empty: no SQL files, empty journal)
 - [x] Replace school login portal background image with uploaded screenshot (verified via screenshot)
 - [x] Make crest + school name in top nav clickable → redirect to user's home dashboard (build OK; not click-tested signed-in)
+- [x] Remove Google "not switched on" warning, move password change from after-login screen into profile settings, serve Fresh Teacher photo from the site so it shows on Vercel.
