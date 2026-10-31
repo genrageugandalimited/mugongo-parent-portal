@@ -1,6 +1,7 @@
 import { LoginForm } from "@/components/auth/LoginForm";
 import { Footer } from "@/components/layout/Footer";
 import { CookieConsent } from "@/components/CookieConsent";
+import { WhatsAppFloat } from "@/components/ui/whatsapp-float";
 
 import { classCrest as classCrest } from "@/lib/images";
 import { schoolEntrance as schoolEntrance } from "@/lib/images";
@@ -26,6 +27,7 @@ export function LoginPage() {
       </div>
       <Footer />
       <CookieConsent />
+      <WhatsAppFloat />
     </div>
   );
 }
