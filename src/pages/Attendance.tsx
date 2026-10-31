@@ -1,3 +1,4 @@
+import { saveAttendance } from "@/lib/attendance.functions";
 import { useState, lazy, Suspense, useEffect, useRef } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -298,19 +299,8 @@ const AttendanceMarking = () => {
       if (!record) continue;
       
       try {
-        const { error } = await (supabase as any).functions.invoke('attendance-save', {
-          body: {
-            student_id: studentId,
-            stream_id: selectedClass,
-            date: format(selectedDate, 'yyyy-MM-dd'),
-            status: record.status,
-            marked_by: userId,
-            marked_at: record.timeMarked,
-            absent_reason: record.absentReason || null
-          }
-        });
-        
-        if (error) throw error;
+        const { error } = await saveAttendance({ data: { student_id: studentId, stream_id: selectedClass, date: format(selectedDate, 'yyyy-MM-dd'), status: record.status } });
+        if (error) throw new Error(error);
         
         updatedSyncStatus[studentId] = true;
         successCount++;
@@ -393,19 +383,8 @@ const AttendanceMarking = () => {
     
     // Try to save to database immediately
     try {
-      const { error } = await (supabase as any).functions.invoke('attendance-save', {
-        body: {
-          student_id: studentId,
-          stream_id: selectedClass,
-          date: format(selectedDate, 'yyyy-MM-dd'),
-          status,
-          marked_by: userId,
-          marked_at: newRecord.timeMarked,
-          absent_reason: newRecord.absentReason || null
-        }
-      });
-
-      if (error) throw error;
+      const { error } = await saveAttendance({ data: { student_id: studentId, stream_id: selectedClass, date: format(selectedDate, 'yyyy-MM-dd'), status } });
+        if (error) throw new Error(error);
 
       // Mark as synced in local storage
       syncStatus[studentId] = true;
