@@ -43,6 +43,13 @@
       "when": 1793414661923,
       "tag": "0005_add_must_change_password",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1793415805567,
+      "tag": "0006_portable_portal_rpcs",
+      "breakpoints": true
     }
   ]
 }
