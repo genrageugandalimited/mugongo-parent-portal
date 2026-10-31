@@ -6,6 +6,7 @@ import { UserRole } from "@/types/user";
 import { toast } from "sonner";
 import { getAdminToken, clearAdminSession } from "@/lib/adminAuth";
 import { getPupilSession, clearPupilSession } from "@/lib/auth.functions";
+import { usesDirectPortal, directSession, directLogout } from "@/lib/portal-direct";
 
 interface AuthContextType {
   user: User | null;
@@ -43,7 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     let active = true;
     const restore = async () => {
       try {
-        const portal = await getPupilSession();
+        const portal = usesDirectPortal() ? await directSession() : await getPupilSession();
         if (!active) return;
         setUser(portal ? { id: portal.id, email: portal.email } as User : null);
         setUserRole(portal?.role ?? null);
@@ -96,7 +97,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const signOut = async () => {
-    await clearPupilSession();
+    if (usesDirectPortal()) await directLogout().catch(() => undefined); else await clearPupilSession();
     // CRITICAL SECURITY FIX: Clear ALL storage first to prevent any session leakage
     const keysToPreserve = ['cookieConsent']; // Preserve non-auth data
     const preservedData: Record<string, string> = {};
