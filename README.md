@@ -27,3 +27,13 @@ npm run dev
 - TypeScript
 - React
 - Tailwind CSS
+
+## Hosting on Vercel
+
+The Vercel build uses the database connected in Vercel (not the Lovable `.env`). In Vercel → Settings → Environment Variables it needs:
+
+- `SUPABASE_URL`, `SUPABASE_ANON_KEY` (or `SUPABASE_PUBLISHABLE_KEY`) and `SUPABASE_SERVICE_ROLE_KEY` — added automatically by Vercel's database integration
+- `PUPIL_SESSION_SECRET` — any private random text of at least 32 characters
+
+If one is missing, the build stops with a message naming it and the previous deployment stays live.
+
