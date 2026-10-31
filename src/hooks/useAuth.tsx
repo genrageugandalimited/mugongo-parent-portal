@@ -19,6 +19,8 @@ interface AuthContextType {
   personalEmail: string | null;
   mustChangePassword: boolean;
   markPasswordChanged: () => void;
+  /** Keeps the starting password for this browser session; the choice is offered again at the next sign-in. */
+  keepCurrentPassword: () => void;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, fullName: string, role: UserRole) => Promise<void>;
   signOut: () => Promise<void>;
@@ -26,6 +28,11 @@ interface AuthContextType {
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+const KEEP_PASSWORD_KEY = "kpm-keep-starting-password";
+function keptPassword(id: string) {
+  try { return sessionStorage.getItem(`${KEEP_PASSWORD_KEY}:${id}`) === "1"; } catch { return false; }
+}
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
@@ -51,7 +58,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setPhotoUrl(portal?.photo_url ?? null);
         setIsVerified(portal?.is_verified ?? false);
         setPersonalEmail(portal?.personal_email ?? null);
-        setMustChangePassword(portal?.must_change_password ?? false);
+        setMustChangePassword(!!portal?.must_change_password && !keptPassword(portal.id));
       } catch {
         if (active) { setUser(null); setUserRole(null); }
       } finally {
@@ -154,6 +161,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       personalEmail,
       mustChangePassword,
       markPasswordChanged: () => setMustChangePassword(false),
+      keepCurrentPassword: () => {
+        if (user?.id) sessionStorage.setItem(`${KEEP_PASSWORD_KEY}:${user.id}`, "1");
+        setMustChangePassword(false);
+      },
       signIn,
       signUp,
       signOut,
