@@ -9,7 +9,14 @@ export async function getPortalSession() {
   setResponseHeader("Cache-Control", "no-store");
   const url = new URL(getRequestUrl());
   const localHttp = url.protocol === "http:" && (url.hostname === "localhost" || url.hostname === "127.0.0.1");
-  return useSession<SessionData>({ password, name: "p5-orange-session", maxAge: 60 * 60 * 24, cookie: { httpOnly: true, sameSite: localHttp ? "lax" : "none", secure: !localHttp, partitioned: !localHttp } });
+  // Only the Lovable editor preview loads the app inside a frame and needs a cross-site cookie;
+  // a normal site (Vercel, custom domain) keeps the stricter first-party Lax cookie.
+  const framedPreview = !localHttp && isFramedPreviewHost(url.hostname);
+  return useSession<SessionData>({ password, name: "p5-orange-session", maxAge: 60 * 60 * 24, cookie: { httpOnly: true, path: "/", sameSite: framedPreview ? "none" : "lax", secure: !localHttp, partitioned: framedPreview } });
+}
+
+export function isFramedPreviewHost(hostname: string) {
+  return /(^|\.)(lovable\.app|lovableproject\.com|lovableproject-dev\.com|lovable\.dev)$/.test(hostname.toLowerCase());
 }
 
 export async function requireStudentSession() {
