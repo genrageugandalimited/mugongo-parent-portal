@@ -22,28 +22,12 @@ export async function startGoogleSignIn({ redirectTo, params }: Options) {
     if (result.error) throw result.error;
     return { redirected: !!result.redirected };
   }
-  await assertGoogleEnabled();
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: { redirectTo, queryParams: params },
   });
   if (error) throw error;
   return { redirected: true };
-}
-
-/** Off Lovable, Google must be switched on in the connected backend; say so instead of opening an error page. */
-async function assertGoogleEnabled() {
-  const url = (import.meta.env.VITE_SUPABASE_URL as string | undefined)?.replace(/\/+$/, "");
-  const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined;
-  if (!url || !key) throw new Error("Google sign-in is not set up for this site yet. Please use your school email.");
-  let enabled: boolean | undefined;
-  try {
-    const response = await fetch(`${url}/auth/v1/settings`, { headers: { apikey: key } });
-    if (response.ok) enabled = (await response.json())?.external?.google === true;
-  } catch {
-    enabled = undefined; // Network hiccup: let the normal sign-in attempt report it.
-  }
-  if (enabled === false) throw new Error("Google sign-in is not switched on for this site yet. Please use your school email.");
 }
 
 /** Reads an error the backend put on the return address after a failed Google sign-in. */

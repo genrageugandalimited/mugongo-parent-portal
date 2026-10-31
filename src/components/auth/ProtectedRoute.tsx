@@ -1,14 +1,13 @@
 import { useEffect } from "react";
 import { Navigate, useLocation } from "@/lib/router-compat";
 import { useAuth } from "@/hooks/useAuth";
-import { ForcePasswordChange } from "./ForcePasswordChange";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { user, userRole, isLoading, mustChangePassword } = useAuth();
+  const { user, userRole, isLoading } = useAuth();
   const location = useLocation();
 
   // Handle email confirmation redirect
@@ -44,8 +43,6 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
-
-  if (mustChangePassword) return <ForcePasswordChange />;
 
   return <>{children}</>;
 }
