@@ -74,7 +74,7 @@ export function RecoverySettings() {
           </div>
         </div>
         <div className="space-y-3 rounded-md border p-3">
-          <p className="text-sm font-medium flex items-center gap-2"><KeyRound className="h-4 w-4" />Change password</p>
+          <p className="text-sm font-medium flex items-center gap-2"><KeyRound className="h-4 w-4" />Forgot your password? Reset it with Gmail</p>
           {!s.linkedGmail ? (
             <p className="text-sm text-muted-foreground">Link a Gmail first. You'll confirm with it before changing your password.</p>
           ) : !changing ? (
