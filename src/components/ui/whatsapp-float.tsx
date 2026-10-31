@@ -12,7 +12,7 @@ interface WhatsAppFloatProps {
 export function WhatsAppFloat({ 
   phoneNumber = "+256753616792", 
   teacherName = "Fresh Teacher",
-  teacherAvatar = "/fresh-teacher.png"
+  teacherAvatar = "/fresh-teacher-dp.jpg"
 }: WhatsAppFloatProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
@@ -71,8 +71,8 @@ export function WhatsAppFloat({
           <div className="flex items-center">
             <img
               src={teacherAvatar}
-              alt="Teacher"
-              className="w-12 h-12 rounded-full mr-3 object-cover object-top"
+              alt={teacherName}
+              className="w-12 h-12 shrink-0 rounded-full mr-3 object-cover object-center bg-white ring-2 ring-white/80"
             />
             <div>
               <h3 className="font-semibold text-base mb-1">{teacherName}</h3>
