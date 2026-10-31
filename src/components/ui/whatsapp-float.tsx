@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { X, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
+import freshTeacherAvatar from "@/assets/fresh-teacher.png.asset.json";
 
 interface WhatsAppFloatProps {
   phoneNumber?: string;
@@ -10,8 +11,8 @@ interface WhatsAppFloatProps {
 
 export function WhatsAppFloat({ 
   phoneNumber = "+256753616792", 
-  teacherName = "School Office",
-  teacherAvatar = "https://fresh-teacher.github.io/dp.jpeg"
+  teacherName = "Fresh Teacher",
+  teacherAvatar = freshTeacherAvatar.url
 }: WhatsAppFloatProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
