@@ -25,3 +25,4 @@
 - School identity writes use the administrator user-management server function and encrypted portal role validation; browser directory access is read-only so hiding controls is not the permission boundary.
 - Personal interests are stored privately by portal account ID and account type; server functions derive ownership from the encrypted session, keeping school identity outside the editable interests schema.
 - Profile photos are compressed in the browser and uploaded through a session-authorized server function to private Storage; account rows store object references and reads issue signed URLs, keeping uploads out of account payloads and preventing arbitrary-user writes.
+- Accounts on the shared starting password carry a server-only `must_change_password` flag returned by the session; ProtectedRoute shows the change-password screen until a session-authorized server function saves a new bcrypt hash, so nobody keeps the publicly known password.
