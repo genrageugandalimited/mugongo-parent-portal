@@ -8,6 +8,7 @@ import { useNavigate } from "@/lib/router-compat";
 import { toast } from "sonner";
 import { linkRecoveryGmail } from "@/lib/recovery.functions";
 import { GOOGLE_READY_KEY } from "@/lib/google-verify";
+import { googleReturnError } from "@/lib/google-oauth";
 
 export const Route = createFileRoute("/auth/google-callback")({
   validateSearch: (search: Record<string, unknown>) => ({ intent: (["link", "recovery-link", "reset", "change-password"] as const).find((i) => i === search.intent) }),
@@ -33,6 +34,8 @@ function GoogleCallback() {
     if (started.current) return;
     started.current = true;
     void (async () => {
+      const returned = googleReturnError();
+      if (returned) throw new Error(`Google sign-in failed: ${returned}`);
       // Direct (non-Lovable host) sign-in returns ?code=; exchange it if the client hasn't yet.
       const code = new URLSearchParams(window.location.search).get("code");
       let { data } = await supabase.auth.getSession();
