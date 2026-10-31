@@ -72,7 +72,7 @@ export function WhatsAppFloat({
             <img
               src={teacherAvatar}
               alt="Teacher"
-              className="w-12 h-12 rounded-full mr-3 object-cover object-top bg-white"
+              className="w-12 h-12 rounded-full mr-3 object-cover object-top"
             />
             <div>
               <h3 className="font-semibold text-base mb-1">{teacherName}</h3>
