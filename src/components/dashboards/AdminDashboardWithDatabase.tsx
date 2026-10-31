@@ -98,8 +98,8 @@ export function AdminDashboard() {
       
       // Use count queries instead of selecting all records to avoid the 1000 row limit
       const [studentsResult, teachersResult, classesResult, streamsResult] = await Promise.all([
-        supabase.from('students').select('*', { count: 'exact', head: true }),
-        supabase.from('teachers').select('*', { count: 'exact', head: true }),
+        supabase.from('students').select('id', { count: 'exact', head: true }),
+        supabase.from('teachers').select('id', { count: 'exact', head: true }),
         supabase.from('classes').select('*', { count: 'exact', head: true }),
         supabase.from('streams').select('*', { count: 'exact', head: true })
       ]);
