@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1793337589685,
+      "tag": "0000_school_portal_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793339454656,
+      "tag": "0001_private_personal_interests_and_admin_identity",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793340887880,
+      "tag": "0002_admin_profile_photo",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793410841849,
+      "tag": "0003_portable_portal_sessions",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793413452932,
+      "tag": "0004_school_portal_ready",
+      "breakpoints": true
+    }
+  ]
+}
