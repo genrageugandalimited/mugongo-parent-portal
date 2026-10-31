@@ -1,0 +1,25 @@
+# Roadmap
+- [ ] Make school login, elections, profile settings and administration portable to Vercel without a service key; preserve private permissions and test real accounts.
+- [ ] Document Google owner credentials and allowed Vercel return address (requires owner configuration).
+- [x] Add compressed camera/gallery profile photos, verified Google default photos, and corner-avatar profile navigation; tested 15.9MB to 149KB/640px, storage persistence, profile navigation in school/election pages, and 27 rules tests. Live Google consent and device camera remain interactive checks.
+- [x] Restore election-only photo camera/gallery selection and dropdown choices; verified gallery upload, selected name/P3/Violet persistence and unchanged profile, with 36 tests passing. Native camera capture depends on device support.
+- [x] Lock school identity edits to administrators, save personal interests in settings/profile, and use blue default avatars; verified pupil persistence, admin assignment save, blocked pupil/direct browser writes, phone layout, and 22 rules tests.
+
+- [ ] Replace the voting subsystem with the uploaded repository, preserve its voting UI with school-blue colours, integrate existing portal accounts, and verify voting and administration.
+
+- [x] Add school crest page-loading overlay with spinning blue outer ring; verified delayed page navigation on desktop and phone, no runtime errors, and all three routing/entrance tests passed.
+
+- [x] Replace orange theme with school blue and match the supplied Google button design; verified blue colours and narrow-screen layout.
+
+- [x] Set up student account schema and protected Google links; verified anonymous access is denied.
+- [x] Add Google sign-in with password-confirmed existing account matching and immediate new student creation.
+- [x] Add secure student Google link/unlink account settings.
+- [x] Test account rules, live portal login, password rejection, password save, and settings restoration.
+- [ ] Complete real Google consent, account matching/new student provisioning, and link/unlink end-to-end — blocked on interactive Google sign-in.
+
+- [x] Move playful transitions into page content; signed-in student navigation shows one entrance per new page, no outgoing-page reanimation, and no runtime errors (three tests passed).
+
+- [x] Update PUPIL_SESSION_SECRET value (old value deleted, fresh 64-char random value generated)
+- [x] Verify Drizzle migrations cleared and empty set rescaffolded (already empty: no SQL files, empty journal)
+- [x] Replace school login portal background image with uploaded screenshot (verified via screenshot)
+- [x] Make crest + school name in top nav clickable → redirect to user's home dashboard (build OK; not click-tested signed-in)
