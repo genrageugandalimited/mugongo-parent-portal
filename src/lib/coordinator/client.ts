@@ -1,6 +1,5 @@
 import { electionRequest, electionRpc } from "./api.functions";
 import { getPupilSession } from "@/lib/auth.functions";
-import { usesDirectPortal, directElection, directElectionRpc, directSession } from "@/lib/portal-direct";
 
 type Reply = { data: any; error: { message: string; code?: string } | null };
 /** Imported UI adapter: every request is authorized against the encrypted portal session on the server. */
@@ -20,8 +19,7 @@ class ElectionQuery implements PromiseLike<Reply> {
   maybeSingle() { this.one = true; return this; }
   single() { this.one = true; return this; }
   then<TResult1 = Reply, TResult2 = never>(onfulfilled?: ((value: Reply) => TResult1 | PromiseLike<TResult1>) | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null): PromiseLike<TResult1 | TResult2> {
-    const req = { table: this.table, action: this.action, values: this.values, filters: this.filters, single: this.one };
-    return (usesDirectPortal() ? directElection(req) : electionRequest({ data: req }))
+    return electionRequest({ data: { table: this.table, action: this.action, values: this.values, filters: this.filters, single: this.one } })
       .then(result => ({ data: result.data, error: result.error ? { message: result.error.message, code: result.error.code } : null }) as Reply)
       .catch(error => ({ data: null, error: { message: error instanceof Error ? error.message : "Could not complete this action." } }))
       .then(onfulfilled, onrejected);
@@ -30,8 +28,8 @@ class ElectionQuery implements PromiseLike<Reply> {
 export const supabase = {
   from: (table: ConstructorParameters<typeof ElectionQuery>[0]) => new ElectionQuery(table),
   async rpc(name: "get_vote_counts" | "get_turnout" | "has_role" | "record_page_view" | "record_candidate_view" | "admin_list_users", args?: Record<string, unknown>): Promise<Reply> {
-    try { const result = usesDirectPortal() ? await directElectionRpc(name, args) : await electionRpc({ data: { name, args } }); return { data: result.data, error: result.error ? { message: result.error.message } : null }; }
+    try { const result = await electionRpc({ data: { name, args } }); return { data: result.data, error: result.error ? { message: result.error.message } : null }; }
     catch (error) { return { data: null, error: { message: error instanceof Error ? error.message : "Election request failed." } }; }
   },
-  auth: { async getUser() { const user = usesDirectPortal() ? await directSession() : await getPupilSession(); return { data: { user }, error: null }; } },
+  auth: { async getUser() { const user = await getPupilSession(); return { data: { user }, error: null }; } },
 };

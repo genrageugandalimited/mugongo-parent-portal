@@ -15,7 +15,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { verifyPupilLogin } from "@/lib/auth.functions";
 import { useServerFn } from "@tanstack/react-start";
 import { GoogleSignIn } from "./GoogleSignIn";
-import { usesDirectPortal, directLogin } from "@/lib/portal-direct";
 import { ForgotPasswordDialog } from "./ForgotPasswordDialog";
 import { school } from "@/lib/school";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -125,10 +124,12 @@ export function LoginForm({ schoolLogo }: LoginFormProps) {
     
     try {
       // Verify pupil credentials against the class register
-      const loginEmail = signInData.email.trim().toLowerCase();
-      const loginResponse = usesDirectPortal()
-        ? await directLogin(loginEmail, signInData.password)
-        : await loginPupil({ data: { email: loginEmail, password: signInData.password } });
+      const loginResponse = await loginPupil({
+        data: {
+          email: signInData.email.trim().toLowerCase(),
+          password: signInData.password,
+        }
+      });
 
       if (!loginResponse.success) {
         toast.error(loginResponse.message || "Invalid email or password");
@@ -320,18 +321,12 @@ export function LoginForm({ schoolLogo }: LoginFormProps) {
             )}
           </Button>
 
-          {!usesDirectPortal() && (
-            <>
-              <div className="relative py-1 text-center text-xs text-muted-foreground"><span className="bg-card px-2">or</span></div>
-              <GoogleSignIn />
-              <div className="flex items-center justify-center">
-                <ForgotPasswordDialog />
-              </div>
-            </>
-          )}
-          {usesDirectPortal() && (
-            <p className="text-center text-xs text-muted-foreground">Forgot your password? Ask the school administrator to reset it.</p>
-          )}
+          <div className="relative py-1 text-center text-xs text-muted-foreground"><span className="bg-card px-2">or</span></div>
+          <GoogleSignIn />
+          
+          <div className="flex items-center justify-center">
+            <ForgotPasswordDialog />
+          </div>
         </form>
       </CardContent>
     </Card>

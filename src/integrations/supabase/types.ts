@@ -728,38 +728,11 @@ export type Database = {
       }
       portal_account: { Args: { p_id: string; p_role: string }; Returns: Json }
       portal_actor: { Args: never; Returns: Json }
-      portal_change_password: {
-        Args: { p_current: string; p_new: string; p_token: string }
-        Returns: Json
-      }
-      portal_election: { Args: { p_req: Json; p_token: string }; Returns: Json }
-      portal_election_rpc: {
-        Args: { p_args: Json; p_name: string; p_token: string }
-        Returns: Json
-      }
       portal_issue_session: {
         Args: { p_id: string; p_role: string }
         Returns: Json
       }
-      portal_logout: { Args: { p_token: string }; Returns: undefined }
-      portal_me: { Args: { p_token: string }; Returns: Json }
       portal_storage_access: { Args: { p_path: string }; Returns: boolean }
-      portal_token_actor: {
-        Args: { p_token: string }
-        Returns: {
-          account_type: string
-          expires_at: string
-          pending_link_until: string | null
-          token_hash: string
-          user_id: string
-        }
-        SetofOptions: {
-          from: "*"
-          to: "portal_sessions"
-          isOneToOne: true
-          isSetofReturn: false
-        }
-      }
       verify_portal_login: {
         Args: { p_email: string; p_password: string }
         Returns: Json
