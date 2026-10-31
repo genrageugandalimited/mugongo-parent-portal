@@ -232,7 +232,7 @@ export function LoginForm({ schoolLogo }: LoginFormProps) {
           <img 
             src={schoolLogo} 
             alt={`${school.name} crest`} 
-            className="h-28 w-28 rounded-full bg-card object-contain p-2 ring-4 ring-primary shadow-md"
+            className="h-28 w-28 rounded-full bg-card object-contain p-0.5 ring-4 ring-primary shadow-md"
           />
         </div>
         <CardTitle className="text-xl font-bold text-center">

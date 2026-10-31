@@ -8,7 +8,7 @@ export function SchoolCrest({ className, alt }: { className?: string; alt?: stri
     <img
       src={classCrest.url}
       alt={alt ?? `${school.name} crest`}
-      className={cn("shrink-0 rounded-full bg-card object-contain p-1 ring-2 ring-primary shadow-sm", className)}
+      className={cn("shrink-0 rounded-full bg-card object-contain p-px ring-2 ring-primary shadow-sm", className)}
     />
   );
 }

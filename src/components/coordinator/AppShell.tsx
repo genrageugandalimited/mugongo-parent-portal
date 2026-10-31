@@ -25,12 +25,9 @@ export function AppShell({ children }: { children: ReactNode }) {
     <DashboardLayout userRole={userRole ?? "student"} userName={userName} photoUrl={photoUrl} onLogout={signOut}>
       <div className="election-shell mx-auto w-full max-w-3xl pb-10 text-foreground">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <Crest />
-            <div className="leading-tight">
-              <p className="font-display text-lg font-bold text-primary">KPM Elections 2026</p>
-              <p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Action Not Words</p>
-            </div>
+          <div className="leading-tight">
+            <p className="font-display text-lg font-bold text-primary">KPM Elections 2026</p>
+            <p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Student council voting</p>
           </div>
         </div>
         <nav aria-label="Election sections" className="mt-4">
